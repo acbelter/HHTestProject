@@ -22,10 +22,10 @@
     <string name="employer_reply">Ответ работодателя</string>
     <string name="hint_reply">Текст письма</string>
     <string name="toast_name">Поле Ф.И.О. должно быть заполнено.</string>
-    <string name="toast_birth_date">Введенная дата рождения некорректна.</string>
+    <string name="toast_birth_date">Дата рождения некорректна.</string>
     <string name="toast_salary">Значение зарплаты некорректно.</string>
-    <string name="toast_phone">Введенный номер телефона некорректен.</string>
-    <string name="toast_email">Введенный e-mail некорректен.</string>
+    <string name="toast_phone">Номер телефона некорректен.</string>
+    <string name="toast_email">E-mail некорректен.</string>
 
     <string-array name="sex_array">
         <item>Не выбран</item>

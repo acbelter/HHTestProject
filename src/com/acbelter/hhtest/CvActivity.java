@@ -166,7 +166,7 @@ public class CvActivity extends Activity {
         // It's assumed that the salary is correct if isn't zero and the first digit isn't zero.
         String strSalary = mSalary.getText().toString();
         if (strSalary.length() > 1 && strSalary.startsWith("0")) {
-            Toast.makeText(this, getString(string.toast_name), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(string.toast_salary), Toast.LENGTH_SHORT).show();
             return false;
         }
         // It's assumed that the email is correct if it matches with regexp.
@@ -238,7 +238,7 @@ public class CvActivity extends Activity {
             if (!isEmpty(mEmail)) {
                 cvIntent.putExtra(EMAIL, mEmail.getText().toString().trim());
             }
-            
+
             startActivityForResult(cvIntent, RQ_SEND_CV);
         }
     }
