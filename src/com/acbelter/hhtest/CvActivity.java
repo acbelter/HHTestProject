@@ -101,7 +101,6 @@ public class CvActivity extends Activity {
                 // Do nothing because old API versions don't include calendar in the DatePicker.
             }
         }
-
         /*
         InputFilter for applying strings consists of only letters,
         spaces, points and dashes as name.
@@ -113,7 +112,7 @@ public class CvActivity extends Activity {
                 for (int i = start; i < end; i++) {
                     char c = source.charAt(i);
                     if (!Character.isLetter(c)
-                            && !Character.isSpace(c)
+                            && !(c == ' ')
                             && !(c == '.')
                             && !(c == '-')) {
                         return "";
@@ -125,6 +124,7 @@ public class CvActivity extends Activity {
         };
 
         mName.setFilters(new InputFilter[]{nameFilter});
+        mName.requestFocus();
     }
 
     private int[] getBirthDate() {
@@ -169,9 +169,12 @@ public class CvActivity extends Activity {
             Toast.makeText(this, getString(string.toast_name), Toast.LENGTH_SHORT).show();
             return false;
         }
-        // It's assumed that the phone is correct if it starts with plus and the plus is only one.
+        // It's assumed that the email is correct if it matches with regexp.
         String strPhone = mPhone.getText().toString();
-        if (strPhone.length() > 0 && strPhone.lastIndexOf("+") != 0) {
+        final String phonePattern = "^\\+?\\d+$";
+        Pattern pp = Pattern.compile(phonePattern);
+        Matcher pm = pp.matcher(strPhone);
+        if (strPhone.length() > 0 && !pm.matches()) {
             Toast.makeText(this, getString(string.toast_phone), Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -184,10 +187,9 @@ public class CvActivity extends Activity {
         String strEmail = mEmail.getText().toString();
         final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-        Pattern p = Pattern.compile(emailPattern);
-        Matcher m = p.matcher(strEmail);
-        if (strEmail.length() > 0 && !m.matches()) {
+        Pattern ep = Pattern.compile(emailPattern);
+        Matcher em = ep.matcher(strEmail);
+        if (strEmail.length() > 0 && !em.matches()) {
             Toast.makeText(this, getString(string.toast_email), Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -236,8 +238,7 @@ public class CvActivity extends Activity {
             if (!isEmpty(mEmail)) {
                 cvIntent.putExtra(EMAIL, mEmail.getText().toString().trim());
             }
-
-            cvIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            
             startActivityForResult(cvIntent, RQ_SEND_CV);
         }
     }

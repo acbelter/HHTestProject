@@ -88,11 +88,15 @@ public class ReplyActivity extends Activity {
             }
             if (extras.containsKey(CvActivity.PHONE)) {
                 phoneText.setText(extras.getString(CvActivity.PHONE));
-                Linkify.addLinks(phoneText, Pattern.compile("\\+\\d*"), "tel:");
+                // phoneText has already correct phone number.
+                // Note: see CvActivity.checkInputData()
+                Linkify.addLinks(phoneText, Pattern.compile("^.+$"), "tel:");
             }
             if (extras.containsKey(CvActivity.EMAIL)) {
-                emailText.setAutoLinkMask(Linkify.EMAIL_ADDRESSES);
                 emailText.setText(extras.getString(CvActivity.EMAIL));
+                // emailText has already correct e-mail address.
+                // Note: see CvActivity.checkInputData()
+                Linkify.addLinks(emailText, Pattern.compile("^.+$"), "mailto:");
             }
         }
     }
