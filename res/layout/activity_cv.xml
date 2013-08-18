@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="5dip">
+
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dip"
+      android:layout_weight="1">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/name_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/initials"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <EditText
+              android:id="@+id/name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textCapWords"
+              android:maxLines="1"
+              android:imeOptions="actionNext"
+              android:hint="@string/hint_name"/>
+
+            <TextView
+              android:id="@+id/birth_date_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/birth_date"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <DatePicker
+              android:id="@+id/birth_date_picker"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+            <TextView
+              android:id="@+id/sex_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/sex"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <Spinner
+              android:id="@+id/sex_spinner"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:entries="@array/sex_array"
+              android:prompt="@string/hint_sex"/>
+
+            <TextView
+              android:id="@+id/office_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/office"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <EditText
+              android:id="@+id/office"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textCapSentences"
+              android:maxLines="1"
+              android:imeOptions="actionNext"
+              android:hint="@string/hint_office"/>
+
+            <TextView
+              android:id="@+id/salary_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/salary"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <EditText
+              android:id="@+id/salary"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="number"
+              android:maxLines="1"
+              android:maxLength="9"
+              android:imeOptions="actionNext"
+              android:hint="@string/hint_salary"/>
+
+            <TextView
+              android:id="@+id/phone_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/phone"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <EditText
+              android:id="@+id/phone"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:digits="+1234567890"
+              android:inputType="phone"
+              android:maxLines="1"
+              android:imeOptions="actionNext"
+              android:hint="@string/hint_phone"/>
+
+            <TextView
+              android:id="@+id/email_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/email"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <EditText
+              android:id="@+id/email"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textEmailAddress"
+              android:maxLines="1"
+              android:hint="@string/hint_email"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+      android:id="@+id/send_cv_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/send_cv_label"
+      android:onClick="sendCv"/>
+</LinearLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="5dip">
+
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dip"
+      android:layout_weight="1">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/name_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/initials"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/name_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/birth_date_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/birth_date"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/birth_date_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/sex_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/sex"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/sex_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/office_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/office"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/office_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/salary_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/salary"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/salary_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/phone_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/phone"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/phone_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/email_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/email"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <TextView
+              android:id="@+id/email_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/no_data"/>
+
+            <TextView
+              android:id="@+id/reply_label"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/reply_label"
+              android:textSize="@dimen/font_size_medium"
+              android:textStyle="bold"/>
+
+            <EditText
+              android:id="@+id/reply"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine|textCapSentences"
+              android:gravity="top"
+              android:minLines="5"
+              android:hint="@string/hint_reply"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+      android:id="@+id/send_reply_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/send_reply_label"
+      android:onClick="sendReply"/>
+</LinearLayout>

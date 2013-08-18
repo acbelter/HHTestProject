@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HHTestProject</string>
+    <string name="hint_name">Фамилия Имя Отчество</string>
+    <string name="initials">Ф.И.О.</string>
+    <string name="birth_date">Дата рождения</string>
+    <string name="sex">Пол</string>
+    <string name="hint_sex">Выбор пола</string>
+    <string name="office">Должность</string>
+    <string name="hint_office">Описание должности</string>
+    <string name="salary">Зарплата</string>
+    <string name="hint_salary">Сумма в рублях</string>
+    <string name="phone">Телефон</string>
+    <string name="hint_phone">+71234567890</string>
+    <string name="email">E-mail</string>
+    <string name="hint_email">email@host.com</string>
+    <string name="send_cv_label">Отправить резюме</string>
+    <string name="send_reply_label">Отправить ответ</string>
+    <string name="reply_label">Письмо соискателю</string>
+    <string name="no_data">Не указано</string>
+    <string name="close">Закрыть</string>
+    <string name="employer_reply">Ответ работодателя</string>
+    <string name="hint_reply">Текст письма</string>
+    <string name="toast_name">Поле Ф.И.О. должно быть заполнено.</string>
+    <string name="toast_birth_date">Введенная дата рождения некорректна.</string>
+    <string name="toast_salary">Значение зарплаты некорректно.</string>
+    <string name="toast_phone">Введенный номер телефона некорректен.</string>
+    <string name="toast_email">Введенный e-mail некорректен.</string>
+
+    <string-array name="sex_array">
+        <item>Не выбран</item>
+        <item>Мужской</item>
+        <item>Женский</item>
+    </string-array>
+
+</resources>
