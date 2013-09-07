@@ -61,7 +61,7 @@ public class CvActivity extends Activity {
     private static final int RQ_SEND_CV = 1;
 
     private EditText mName;
-    private DatePicker mBirthDatePicker;
+    //private DatePicker mBirthDatePicker;
     private Spinner mSexSpinner;
     private EditText mOffice;
     private EditText mSalary;
@@ -85,7 +85,7 @@ public class CvActivity extends Activity {
         setContentView(R.layout.activity_cv);
 
         mName = (EditText) findViewById(id.name);
-        mBirthDatePicker = (DatePicker) findViewById(id.birth_date_picker);
+        //mBirthDatePicker = (DatePicker) findViewById(id.birth_date_picker);
         mSexSpinner = (Spinner) findViewById(id.sex_spinner);
         mOffice = (EditText) findViewById(id.office);
         mSalary = (EditText) findViewById(id.salary);
@@ -95,8 +95,8 @@ public class CvActivity extends Activity {
         if (Build.VERSION.SDK_INT >= 11) {
             try {
                 String methodName = "setCalendarViewShown";
-                Method m = mBirthDatePicker.getClass().getMethod(methodName, boolean.class);
-                m.invoke(mBirthDatePicker, false);
+               // Method m = mBirthDatePicker.getClass().getMethod(methodName, boolean.class);
+                //m.invoke(mBirthDatePicker, false);
             } catch (Exception e) {
                 // Do nothing because old API versions don't include calendar in the DatePicker.
             }
@@ -129,9 +129,9 @@ public class CvActivity extends Activity {
 
     private int[] getBirthDate() {
         int date[] = new int[3];
-        date[0] = mBirthDatePicker.getYear();
-        date[1] = mBirthDatePicker.getMonth();
-        date[2] = mBirthDatePicker.getDayOfMonth();
+        //date[0] = mBirthDatePicker.getYear();
+        //date[1] = mBirthDatePicker.getMonth();
+        //date[2] = mBirthDatePicker.getDayOfMonth();
         return date;
     }
 

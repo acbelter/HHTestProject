@@ -1,48 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingLeft="16dp"
-              android:paddingRight="16dp">
-
-    <Button
-      android:id="@+id/send_reply_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="4dp"
-      android:layout_centerHorizontal="true"
-      android:text="@string/send_reply_label"
-      android:textSize="@dimen/label_text_size"
-      android:onClick="sendReply"/>
-
-    <EditText
-      android:id="@+id/reply"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/send_reply_button"
-      android:layout_marginBottom="8dp"
-      android:inputType="textMultiLine|textCapSentences"
-      android:gravity="top"
-      android:minLines="5"
-      android:hint="@string/hint_reply"/>
-
-    <TextView
-      android:id="@+id/reply_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/reply"
-      android:text="@string/reply_label"
-      android:textSize="@dimen/label_text_size"
-      android:textStyle="bold"/>
+              android:paddingRight="16dp"
+              android:baselineAligned="false">
 
     <ScrollView
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_above="@id/reply_label"
-      android:layout_alignParentTop="true">
+      android:layout_weight="1"
+      android:layout_marginRight="4dp">
 
         <LinearLayout
           android:orientation="vertical"
@@ -157,4 +127,40 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:layout_marginLeft="4dp">
+
+        <TextView
+          android:id="@+id/reply_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/reply_label"
+          android:textSize="@dimen/label_text_size"
+          android:textStyle="bold"/>
+
+        <EditText
+          android:id="@+id/reply"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+
+          android:layout_marginBottom="8dp"
+          android:inputType="textMultiLine|textCapSentences"
+          android:gravity="top"
+          android:minLines="5"
+          android:hint="@string/hint_reply"/>
+
+        <Button
+          android:id="@+id/send_reply_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="4dp"
+          android:layout_gravity="right"
+          android:text="@string/send_reply_label"
+          android:textSize="@dimen/label_text_size"
+          android:onClick="sendReply"/>
+    </LinearLayout>
+</LinearLayout>
