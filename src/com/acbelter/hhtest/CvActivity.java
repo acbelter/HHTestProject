@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, acbelter
+ * Copyright (c) 2013, Alexander Lagutenko
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,18 +30,20 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.*;
 import com.acbelter.hhtest.R.id;
 import com.acbelter.hhtest.R.layout;
 import com.acbelter.hhtest.R.string;
+import com.acbelter.hhtest.R.style;
 
-import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -61,7 +63,7 @@ public class CvActivity extends Activity {
     private static final int RQ_SEND_CV = 1;
 
     private EditText mName;
-    //private DatePicker mBirthDatePicker;
+    private TextView mBirthDate;
     private Spinner mSexSpinner;
     private EditText mOffice;
     private EditText mSalary;
@@ -85,22 +87,26 @@ public class CvActivity extends Activity {
         setContentView(R.layout.activity_cv);
 
         mName = (EditText) findViewById(id.name);
-        //mBirthDatePicker = (DatePicker) findViewById(id.birth_date_picker);
+        mBirthDate = (TextView) findViewById(id.birth_date);
         mSexSpinner = (Spinner) findViewById(id.sex_spinner);
         mOffice = (EditText) findViewById(id.office);
         mSalary = (EditText) findViewById(id.salary);
         mPhone = (EditText) findViewById(id.phone);
         mEmail = (EditText) findViewById(id.email);
+
+
         // Hide calendar if SDK version is more than 11.
-        if (Build.VERSION.SDK_INT >= 11) {
-            try {
-                String methodName = "setCalendarViewShown";
-               // Method m = mBirthDatePicker.getClass().getMethod(methodName, boolean.class);
-                //m.invoke(mBirthDatePicker, false);
-            } catch (Exception e) {
-                // Do nothing because old API versions don't include calendar in the DatePicker.
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= 11) {
+//            try {
+//                String methodName = "setCalendarViewShown";
+//               // Method m = mBirthDatePicker.getClass().getMethod(methodName, boolean.class);
+//                //m.invoke(mBirthDatePicker, false);
+//            } catch (Exception e) {
+//                // Do nothing because old API versions don't include calendar in the DatePicker.
+//            }
+//        }
+
+
         /*
         InputFilter for applying strings consists of only letters,
         spaces, points and dashes as name.
@@ -111,10 +117,7 @@ public class CvActivity extends Activity {
                                        Spanned dest, int dstart, int dend) {
                 for (int i = start; i < end; i++) {
                     char c = source.charAt(i);
-                    if (!Character.isLetter(c)
-                            && !(c == ' ')
-                            && !(c == '.')
-                            && !(c == '-')) {
+                    if (!Character.isLetter(c) && !(c == ' ') && !(c == '.') && !(c == '-')) {
                         return "";
                     }
                 }
@@ -208,7 +211,15 @@ public class CvActivity extends Activity {
     }
 
     /**
-     * Called when user press the button for sending the curriculum vitae.
+     * Called when user press the button to set date of birth.
+     * @param view Clicked button view.
+     */
+    public void setBirthDate(View view) {
+        // TODO Create DatePickerDialog
+    }
+
+    /**
+     * Called when user press the button to send curriculum vitae.
      * @param view Clicked button view.
      */
     public void sendCv(View view) {
@@ -249,10 +260,16 @@ public class CvActivity extends Activity {
      * @param replyText Employer's reply text.
      * @return New instance of the dialog.
      */
-    private static Dialog buildDialog(Context context, String replyText) {
-        final Dialog d = new Dialog(context);
+    private Dialog buildDialog(Context context, String replyText) {
+        final Dialog d = new Dialog(context, style.MyDialogStyle);
         d.setContentView(layout.reply);
-        d.setTitle(string.employer_reply);
+        d.setCancelable(false);
+
+        Display display =((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        Point p = new Point();
+        display.getSize(p);
+
+        d.getWindow().setLayout((int) (0.8f * p.x), (int) (0.6f * p.y));
 
         TextView replyTextView = (TextView) d.findViewById(id.reply_text);
         if (replyText != null) replyTextView.setText(replyText);

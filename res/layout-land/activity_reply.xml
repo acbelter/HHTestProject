@@ -12,7 +12,9 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
-      android:layout_marginRight="4dp">
+      android:layout_marginRight="4dp"
+      android:layout_marginTop="4dp"
+      android:layout_marginBottom="4dp">
 
         <LinearLayout
           android:orientation="vertical"
@@ -23,7 +25,6 @@
               android:id="@+id/name_label"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="4dp"
               android:text="@string/initials"
               android:textSize="@dimen/label_text_size"
               android:textStyle="bold"/>
@@ -33,7 +34,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
 
             <TextView
               android:id="@+id/birth_date_label"
@@ -48,7 +50,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
 
             <TextView
               android:id="@+id/sex_label"
@@ -63,7 +66,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
 
             <TextView
               android:id="@+id/office_label"
@@ -78,7 +82,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
 
             <TextView
               android:id="@+id/salary_label"
@@ -93,7 +98,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
 
             <TextView
               android:id="@+id/phone_label"
@@ -108,7 +114,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
 
             <TextView
               android:id="@+id/email_label"
@@ -122,8 +129,8 @@
               android:id="@+id/email_text"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="8dp"
-              android:text="@string/no_data"/>
+              android:text="@string/no_data"
+              android:textSize="@dimen/detail_text_size"/>
         </LinearLayout>
     </ScrollView>
 
@@ -138,6 +145,7 @@
           android:id="@+id/reply_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
           android:text="@string/reply_label"
           android:textSize="@dimen/label_text_size"
           android:textStyle="bold"/>
@@ -145,12 +153,11 @@
         <EditText
           android:id="@+id/reply"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-
+          android:layout_height="0dp"
+          android:layout_weight="1"
           android:layout_marginBottom="8dp"
           android:inputType="textMultiLine|textCapSentences"
           android:gravity="top"
-          android:minLines="5"
           android:hint="@string/hint_reply"/>
 
         <Button

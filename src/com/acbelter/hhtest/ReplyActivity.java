@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, acbelter
+ * Copyright (c) 2013, Alexander Lagutenko
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,

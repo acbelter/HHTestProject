@@ -55,7 +55,8 @@
               android:layout_toRightOf="@+id/birth_date"
               android:layout_marginLeft="8dp"
               android:layout_marginBottom="8dp"
-              android:text="@string/select"/>
+              android:text="@string/select"
+              android:onClick="setBirthDate"/>
 
             <TextView
               android:id="@id/birth_date"

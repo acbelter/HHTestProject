@@ -55,45 +55,45 @@
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"/>
 
-                <Button
-                  android:id="@+id/set_birth_date_button"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/birth_date_label"
-                  android:layout_toRightOf="@+id/birth_date"
-                  android:layout_marginLeft="8dp"
-                  android:layout_marginBottom="8dp"
-                  android:text="@string/select"/>
-
                 <TextView
-                  android:id="@id/birth_date"
+                  android:id="@+id/birth_date"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginBottom="8dp"
-                  android:layout_alignBaseline="@id/set_birth_date_button"
+                  android:layout_alignBaseline="@+id/set_birth_date_button"
                   android:text="@string/date_mask"
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"/>
 
-                <Spinner
-                  android:id="@+id/sex_spinner"
+                <Button
+                  android:id="@id/set_birth_date_button"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/set_birth_date_button"
+                  android:layout_below="@id/birth_date_label"
                   android:layout_toRightOf="@id/birth_date"
                   android:layout_marginLeft="8dp"
                   android:layout_marginBottom="8dp"
-                  android:entries="@array/sex_array"
-                  android:prompt="@string/hint_sex"/>
+                  android:text="@string/select"
+                  android:onClick="setBirthDate"/>
 
                 <TextView
-                  android:id="@+id/sex_label"
+                  android:id="@id/sex_label"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_alignBaseline="@id/sex_spinner"
+                  android:layout_alignBaseline="@+id/sex_spinner"
                   android:text="@string/sex"
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"/>
+
+                <Spinner
+                  android:id="@id/sex_spinner"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/set_birth_date_button"
+                  android:layout_alignLeft="@id/set_birth_date_button"
+                  android:layout_marginBottom="8dp"
+                  android:entries="@array/sex_array"
+                  android:prompt="@string/hint_sex"/>
 
                 <EditText
                   android:id="@+id/office"
@@ -150,7 +150,6 @@
           android:text="@string/send_cv_label"
           android:textSize="@dimen/label_text_size"
           android:onClick="sendCv"/>
-
     </LinearLayout>
 
     <View
