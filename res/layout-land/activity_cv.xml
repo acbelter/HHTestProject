@@ -31,7 +31,7 @@
           android:layout_weight="1"
           android:scrollbarStyle="insideInset">
 
-            <RelativeLayout
+            <LinearLayout
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
@@ -50,7 +50,6 @@
                   android:id="@+id/birth_date_label"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/name"
                   android:layout_marginBottom="8dp"
                   android:text="@string/birth_date"
                   android:textSize="@dimen/label_text_size"
@@ -61,7 +60,6 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginBottom="8dp"
-                  android:layout_below="@id/birth_date_label"
                   android:text="@string/date_mask"
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"
@@ -72,7 +70,6 @@
                   android:id="@+id/sex_label"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/birth_date"
                   android:text="@string/sex"
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"/>
@@ -81,10 +78,6 @@
                   android:id="@+id/sex_spinner"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/birth_date"
-                  android:layout_toRightOf="@id/sex_label"
-                  android:layout_alignBaseline="@id/sex_label"
-                  android:layout_marginLeft="8dp"
                   android:layout_marginBottom="8dp"
                   android:entries="@array/sex_array"
                   android:spinnerMode="dropdown"/>
@@ -93,7 +86,6 @@
                   android:id="@+id/office"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/sex_spinner"
                   android:layout_marginBottom="8dp"
                   android:inputType="textCapSentences"
                   android:maxLines="1"
@@ -104,7 +96,6 @@
                   android:id="@+id/salary"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/office"
                   android:layout_marginBottom="8dp"
                   android:inputType="number"
                   android:maxLines="1"
@@ -116,7 +107,6 @@
                   android:id="@+id/phone"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/salary"
                   android:layout_marginBottom="8dp"
                   android:digits="+1234567890"
                   android:inputType="phone"
@@ -128,11 +118,10 @@
                   android:id="@+id/email"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/phone"
                   android:inputType="textEmailAddress"
                   android:maxLines="1"
                   android:hint="@string/hint_email"/>
-            </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
 
         <Button
