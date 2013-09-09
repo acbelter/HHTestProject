@@ -30,15 +30,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.format.DateFormat;
-import android.view.Display;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.*;
 import android.widget.DatePicker.OnDateChangedListener;
 import com.acbelter.hhtest.R.id;
@@ -383,11 +381,8 @@ public class CvActivity extends Activity {
         d.setContentView(layout.reply);
         d.setCancelable(false);
 
-        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-        Point p = new Point();
-        display.getSize(p);
-
-        d.getWindow().setLayout((int) (0.8f * p.x), (int) (0.6f * p.y));
+        DisplayMetrics dm = this.getResources().getDisplayMetrics();
+        d.getWindow().setLayout((int) (0.8f * dm.widthPixels), (int) (0.6f * dm.heightPixels));
 
         TextView replyTextView = (TextView) d.findViewById(id.reply_text);
         if (replyText != null) replyTextView.setText(replyText);

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <string name="app_name">HHTestProject</string>
+    <string name="cv_label">Резюме</string>
     <string name="hint_name">Фамилия Имя Отчество</string>
     <string name="initials">Ф.И.О.</string>
     <string name="birth_date">Дата рождения</string>
+    <string name="date_mask">--.--.----</string>
     <string name="sex">Пол</string>
     <string name="office">Должность</string>
     <string name="hint_office">Должность</string>
@@ -26,10 +29,7 @@
     <string name="toast_salary">Значение зарплаты некорректно.</string>
     <string name="toast_phone">Номер телефона некорректен.</string>
     <string name="toast_email">E-mail некорректен.</string>
-    <string name="select">Выбрать</string>
     <string name="set">Задать</string>
-    <string name="date_mask">--.--.----</string>
-    <string name="cv_label">Резюме</string>
 
     <string-array name="sex_array">
         <item>Не выбран</item>
