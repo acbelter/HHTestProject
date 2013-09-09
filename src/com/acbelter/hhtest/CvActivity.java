@@ -67,6 +67,7 @@ public class CvActivity extends Activity {
     private static final String REPLY = "com.acbelter.hhtest.REPLY";
     private static final String REPLY_DIALOG_STATE = "com.acbelter.hhtest.REPLY_DIALOG_STATE";
     private static final String DP_DIALOG_STATE = "com.acbelter.hhtest.DP_DIALOG_STATE";
+    private static final String BIRTH_DATE = "com.acbelter.hhtest.BIRTH_DATE";
 
     private static final int RQ_SEND_CV = 1;
 
@@ -106,7 +107,6 @@ public class CvActivity extends Activity {
         mSalary = (EditText) findViewById(id.salary);
         mPhone = (EditText) findViewById(id.phone);
         mEmail = (EditText) findViewById(id.email);
-
         /*
         InputFilter for applying strings consists of only letters,
         spaces, points and dashes as name.
@@ -135,15 +135,21 @@ public class CvActivity extends Activity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(REPLY_DIALOG_STATE, mReplyDialogState);
         outState.putBoolean(DP_DIALOG_STATE, mDpDialogState);
-        outState.putString(REPLY, mReply);
-        outState.putInt(BD_YEAR, mBdYear);
-        outState.putInt(BD_MONTH, mBdMonth);
-        outState.putInt(BD_DAY, mBdDay);
+        if (mReplyDialogState) {
+            outState.putString(REPLY, mReply);
+        }
+        if (mDpDialogState) {
+            outState.putInt(BD_YEAR, mBdYear);
+            outState.putInt(BD_MONTH, mBdMonth);
+            outState.putInt(BD_DAY, mBdDay);
+        }
+        outState.putCharSequence(BIRTH_DATE, mBirthDate.getText());
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        mBirthDate.setText(savedInstanceState.getCharSequence(BIRTH_DATE));
         if (savedInstanceState.getBoolean(REPLY_DIALOG_STATE)) {
             buildReplyDialog(this, savedInstanceState.getString(REPLY)).show();
             mReplyDialogState = true;
@@ -157,7 +163,6 @@ public class CvActivity extends Activity {
             mDpDialogState = true;
         }
     }
-
 
     private int[] getBirthDateValue() {
         String strDate = mBirthDate.getText().toString();
@@ -270,12 +275,7 @@ public class CvActivity extends Activity {
         int[] dateArray = getBirthDateValue();
         if (dateArray == null) {
             dateArray = new int[3];
-
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.YEAR, -16);
-            c.set(Calendar.MONTH, Calendar.JANUARY);
-            c.set(Calendar.DAY_OF_MONTH, 1);
-
             dateArray[0] = c.get(Calendar.YEAR);
             dateArray[1] = c.get(Calendar.MONTH);
             dateArray[2] = c.get(Calendar.DAY_OF_MONTH);
@@ -335,18 +335,12 @@ public class CvActivity extends Activity {
         d.setContentView(layout.birth_date_picker);
         d.setCancelable(false);
 
-//        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-//        Point p = new Point();
-//        display.getSize(p);
-//
-//        d.getWindow().setLayout((int) (0.8f * p.x), (int) (0.6f * p.y));
-
         final DatePicker picker = (DatePicker) d.findViewById(id.birth_date_picker);
         mBdYear = year;
         mBdMonth = month;
         mBdDay = day;
 
-        picker.init(mBdYear, mBdMonth, mBdDay, new OnDateChangedListener() {
+        picker.init(year, month, day, new OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int month, int day) {
                 mBdYear = year;
@@ -363,9 +357,6 @@ public class CvActivity extends Activity {
                 setBirthDateValue(new int[]{picker.getYear(), picker.getMonth(),
                         picker.getDayOfMonth()});
                 mDpDialogState = false;
-                mBdYear = -1;
-                mBdMonth = -1;
-                mBdDay = -1;
             }
         });
 
@@ -375,9 +366,6 @@ public class CvActivity extends Activity {
             public void onClick(View v) {
                 d.dismiss();
                 mDpDialogState = false;
-                mBdYear = -1;
-                mBdMonth = -1;
-                mBdDay = -1;
             }
         });
 

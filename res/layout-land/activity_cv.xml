@@ -51,7 +51,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_below="@id/name"
-                  android:layout_marginBottom="4dp"
+                  android:layout_marginBottom="8dp"
                   android:text="@string/birth_date"
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"/>
@@ -61,37 +61,30 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginBottom="8dp"
-                  android:layout_alignBaseline="@+id/set_birth_date_button"
+                  android:layout_below="@id/birth_date_label"
                   android:text="@string/date_mask"
                   android:textSize="@dimen/label_text_size"
-                  android:textStyle="bold"/>
-
-                <Button
-                  android:id="@id/set_birth_date_button"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/birth_date_label"
-                  android:layout_toRightOf="@id/birth_date"
-                  android:layout_marginLeft="8dp"
-                  android:layout_marginBottom="8dp"
-                  android:text="@string/select"
+                  android:textStyle="bold"
+                  android:clickable="true"
                   android:onClick="setBirthDate"/>
 
                 <TextView
                   android:id="@+id/sex_label"
-                  android:layout_width="match_parent"
+                  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_alignBaseline="@+id/sex_spinner"
+                  android:layout_below="@id/birth_date"
                   android:text="@string/sex"
                   android:textSize="@dimen/label_text_size"
                   android:textStyle="bold"/>
 
                 <Spinner
-                  android:id="@id/sex_spinner"
+                  android:id="@+id/sex_spinner"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/set_birth_date_button"
-                  android:layout_alignLeft="@id/set_birth_date_button"
+                  android:layout_below="@id/birth_date"
+                  android:layout_toRightOf="@id/sex_label"
+                  android:layout_alignBaseline="@id/sex_label"
+                  android:layout_marginLeft="8dp"
                   android:layout_marginBottom="8dp"
                   android:entries="@array/sex_array"
                   android:spinnerMode="dropdown"/>

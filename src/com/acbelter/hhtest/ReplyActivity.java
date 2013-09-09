@@ -41,7 +41,6 @@ import java.util.regex.Pattern;
 
 public class ReplyActivity extends Activity {
     public static final String REPLY = "com.acbelter.hhtest.REPLY";
-
     private EditText mReplyText;
 
     @Override
