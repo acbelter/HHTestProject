@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Alexander Lagutenko
+ * Copyright (c) 2013, acbelter
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -34,16 +34,20 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.format.DateFormat;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.*;
+import android.widget.DatePicker.OnDateChangedListener;
 import com.acbelter.hhtest.R.id;
 import com.acbelter.hhtest.R.layout;
 import com.acbelter.hhtest.R.string;
 import com.acbelter.hhtest.R.style;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -53,14 +57,20 @@ public class CvActivity extends Activity {
     public static final String NAME = "com.acbelter.hhtest.NAME";
     public static final String BD_YEAR = "com.acbelter.hhtest.BD_YEAR";
     public static final String BD_MONTH = "com.acbelter.hhtest.BD_MONTH";
-    public static final String BD_DAY = "com.acbelter.hhtest.DD_DAY";
+    public static final String BD_DAY = "com.acbelter.hhtest.BD_DAY";
     public static final String SEX = "com.acbelter.hhtest.SEX";
     public static final String OFFICE = "com.acbelter.hhtest.OFFICE";
     public static final String SALARY = "com.acbelter.hhtest.SALARY";
     public static final String PHONE = "com.acbelter.hhtest.PHONE";
     public static final String EMAIL = "com.acbelter.hhtest.EMAIL";
 
+    private static final String REPLY = "com.acbelter.hhtest.REPLY";
+    private static final String REPLY_DIALOG_STATE = "com.acbelter.hhtest.REPLY_DIALOG_STATE";
+    private static final String DP_DIALOG_STATE = "com.acbelter.hhtest.DP_DIALOG_STATE";
+
     private static final int RQ_SEND_CV = 1;
+
+    private static final String DF_MASK = "dd.MM.yyyy";
 
     private EditText mName;
     private TextView mBirthDate;
@@ -69,17 +79,20 @@ public class CvActivity extends Activity {
     private EditText mSalary;
     private EditText mPhone;
     private EditText mEmail;
-
     /**
-     * Fields for saving replay dialog's state after screen rotation.
+     * Fields for saving dialogs states after screen rotation.
      */
-    private static String sReplyStr;
-    private static boolean sDialogShow;
+    private boolean mReplyDialogState;
+    private String mReply;
+    private boolean mDpDialogState;
+    private int mBdYear;
+    private int mBdMonth;
+    private int mBdDay;
 
     /**
      * True, if the date of birth was changed and now it's less than the current date.
      */
-    private boolean mDateReduced;
+    private boolean mCorrectBirthDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,19 +106,6 @@ public class CvActivity extends Activity {
         mSalary = (EditText) findViewById(id.salary);
         mPhone = (EditText) findViewById(id.phone);
         mEmail = (EditText) findViewById(id.email);
-
-
-        // Hide calendar if SDK version is more than 11.
-//        if (Build.VERSION.SDK_INT >= 11) {
-//            try {
-//                String methodName = "setCalendarViewShown";
-//               // Method m = mBirthDatePicker.getClass().getMethod(methodName, boolean.class);
-//                //m.invoke(mBirthDatePicker, false);
-//            } catch (Exception e) {
-//                // Do nothing because old API versions don't include calendar in the DatePicker.
-//            }
-//        }
-
 
         /*
         InputFilter for applying strings consists of only letters,
@@ -130,12 +130,70 @@ public class CvActivity extends Activity {
         mName.requestFocus();
     }
 
-    private int[] getBirthDate() {
-        int date[] = new int[3];
-        //date[0] = mBirthDatePicker.getYear();
-        //date[1] = mBirthDatePicker.getMonth();
-        //date[2] = mBirthDatePicker.getDayOfMonth();
-        return date;
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(REPLY_DIALOG_STATE, mReplyDialogState);
+        outState.putBoolean(DP_DIALOG_STATE, mDpDialogState);
+        outState.putString(REPLY, mReply);
+        outState.putInt(BD_YEAR, mBdYear);
+        outState.putInt(BD_MONTH, mBdMonth);
+        outState.putInt(BD_DAY, mBdDay);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.getBoolean(REPLY_DIALOG_STATE)) {
+            buildReplyDialog(this, savedInstanceState.getString(REPLY)).show();
+            mReplyDialogState = true;
+            return;
+        }
+        if (savedInstanceState.getBoolean(DP_DIALOG_STATE)) {
+            buildDatePickerDialog(this,
+                    savedInstanceState.getInt(BD_YEAR),
+                    savedInstanceState.getInt(BD_MONTH),
+                    savedInstanceState.getInt(BD_DAY)).show();
+            mDpDialogState = true;
+        }
+    }
+
+
+    private int[] getBirthDateValue() {
+        String strDate = mBirthDate.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat(DF_MASK);
+
+        Date date;
+        try {
+            date = sdf.parse(strDate);
+        } catch (ParseException e) {
+            return null;
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        int[] dateArray = new int[3];
+        dateArray[0] = c.get(Calendar.YEAR);
+        dateArray[1] = c.get(Calendar.MONTH);
+        dateArray[2] = c.get(Calendar.DAY_OF_MONTH);
+
+        return dateArray;
+    }
+
+    private void setBirthDateValue(int[] dateArray) {
+        if (dateArray == null) {
+            mBirthDate.setText(string.date_mask);
+            return;
+        }
+
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.YEAR, dateArray[0]);
+        c.set(Calendar.MONTH, dateArray[1]);
+        c.set(Calendar.DAY_OF_MONTH, dateArray[2]);
+
+        mBirthDate.setText(DateFormat.format(DF_MASK, c));
     }
 
     /**
@@ -152,19 +210,19 @@ public class CvActivity extends Activity {
         Calendar c = Calendar.getInstance();
         Date currentDate = c.getTime();
 
-        int[] date = getBirthDate();
-        c.set(Calendar.YEAR, date[0]);
-        c.set(Calendar.MONTH, date[1]);
-        c.set(Calendar.DAY_OF_MONTH, date[2]);
-        Date birthDate = c.getTime();
-
-        mDateReduced = false;
-        // It's assumed that the date of birth is correct if it's less than the current date.
-        if (birthDate.compareTo(currentDate) > 0) {
-            Toast.makeText(this, getString(string.toast_birth_date), Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (birthDate.compareTo(currentDate) < 0) {
-            mDateReduced = true;
+        mCorrectBirthDate = false;
+        int[] date = getBirthDateValue();
+        if (date != null) {
+            c.set(Calendar.YEAR, date[0]);
+            c.set(Calendar.MONTH, date[1]);
+            c.set(Calendar.DAY_OF_MONTH, date[2]);
+            Date birthDate = c.getTime();
+             // It's assumed that the date of birth is correct if it's less than the current date.
+            if (birthDate.compareTo(currentDate) >= 0) {
+                Toast.makeText(this, getString(string.toast_birth_date), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            mCorrectBirthDate = true;
         }
         // It's assumed that the salary is correct if isn't zero and the first digit isn't zero.
         String strSalary = mSalary.getText().toString();
@@ -200,12 +258,6 @@ public class CvActivity extends Activity {
         return true;
     }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (sDialogShow) buildDialog(this, sReplyStr).show();
-    }
-
     private boolean isEmpty(EditText editText) {
         return editText.getText().toString().trim().length() < 1;
     }
@@ -215,7 +267,22 @@ public class CvActivity extends Activity {
      * @param view Clicked button view.
      */
     public void setBirthDate(View view) {
-        // TODO Create DatePickerDialog
+        int[] dateArray = getBirthDateValue();
+        if (dateArray == null) {
+            dateArray = new int[3];
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.YEAR, -16);
+            c.set(Calendar.MONTH, Calendar.JANUARY);
+            c.set(Calendar.DAY_OF_MONTH, 1);
+
+            dateArray[0] = c.get(Calendar.YEAR);
+            dateArray[1] = c.get(Calendar.MONTH);
+            dateArray[2] = c.get(Calendar.DAY_OF_MONTH);
+        }
+
+        buildDatePickerDialog(this, dateArray[0], dateArray[1], dateArray[2]).show();
+        mDpDialogState = true;
     }
 
     /**
@@ -227,8 +294,8 @@ public class CvActivity extends Activity {
         if (checkInputData()) {
             cvIntent.putExtra(NAME, mName.getText().toString().trim());
 
-            int[] date = getBirthDate();
-            if (mDateReduced) {
+            if (mCorrectBirthDate) {
+                int[] date = getBirthDateValue();
                 cvIntent.putExtra(BD_YEAR, date[0]);
                 cvIntent.putExtra(BD_MONTH, date[1]);
                 cvIntent.putExtra(BD_DAY, date[2]);
@@ -255,17 +322,80 @@ public class CvActivity extends Activity {
     }
 
     /**
-     * Creates the dialog with employer's reply.
-     * @param context The Context the Dialog is to run it.
+     * Creates custom DatePickerDialog.
+     * @param context Context of the dialog.
+     * @param year Starting year.
+     * @param month Starting month.
+     * @param day Starting day of month.
+     * @return New instance of the dialog.
+     */
+    private Dialog buildDatePickerDialog(Context context,
+                                         int year, int month, int day) {
+        final Dialog d = new Dialog(context, style.MyDialogStyle);
+        d.setContentView(layout.birth_date_picker);
+        d.setCancelable(false);
+
+//        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+//        Point p = new Point();
+//        display.getSize(p);
+//
+//        d.getWindow().setLayout((int) (0.8f * p.x), (int) (0.6f * p.y));
+
+        final DatePicker picker = (DatePicker) d.findViewById(id.birth_date_picker);
+        mBdYear = year;
+        mBdMonth = month;
+        mBdDay = day;
+
+        picker.init(mBdYear, mBdMonth, mBdDay, new OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int month, int day) {
+                mBdYear = year;
+                mBdMonth = month;
+                mBdDay = day;
+            }
+        });
+
+        Button setButton = (Button) d.findViewById(id.set_button);
+        setButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+                setBirthDateValue(new int[]{picker.getYear(), picker.getMonth(),
+                        picker.getDayOfMonth()});
+                mDpDialogState = false;
+                mBdYear = -1;
+                mBdMonth = -1;
+                mBdDay = -1;
+            }
+        });
+
+        Button cancelButton = (Button) d.findViewById(id.cancel_button);
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+                mDpDialogState = false;
+                mBdYear = -1;
+                mBdMonth = -1;
+                mBdDay = -1;
+            }
+        });
+
+        return d;
+    }
+
+    /**
+     * Creates dialog with employer's reply.
+     * @param context Context of the dialog.
      * @param replyText Employer's reply text.
      * @return New instance of the dialog.
      */
-    private Dialog buildDialog(Context context, String replyText) {
+    private Dialog buildReplyDialog(Context context, String replyText) {
         final Dialog d = new Dialog(context, style.MyDialogStyle);
         d.setContentView(layout.reply);
         d.setCancelable(false);
 
-        Display display =((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         Point p = new Point();
         display.getSize(p);
 
@@ -279,8 +409,8 @@ public class CvActivity extends Activity {
             @Override
             public void onClick(View view) {
                 d.dismiss();
-                sDialogShow = false;
-                sReplyStr = null;
+                mReplyDialogState = false;
+                mReply = null;
             }
         });
 
@@ -291,9 +421,9 @@ public class CvActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == RQ_SEND_CV) {
-                sReplyStr = data.getStringExtra(ReplyActivity.REPLY);
-                buildDialog(this, sReplyStr).show();
-                sDialogShow = true;
+                mReply = data.getStringExtra(ReplyActivity.REPLY);
+                buildReplyDialog(this, mReply).show();
+                mReplyDialogState = true;
             }
         }
     }
