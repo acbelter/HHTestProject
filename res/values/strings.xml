@@ -2,38 +2,38 @@
 
 <resources>
     <string name="app_name">HHTestProject</string>
-    <string name="cv_label">Резюме</string>
-    <string name="hint_name">Фамилия Имя Отчество</string>
-    <string name="initials">Ф.И.О.</string>
-    <string name="birth_date">Дата рождения</string>
+    <string name="cv_label">Resume</string>
+    <string name="hint_name">Enter your name</string>
+    <string name="initials">Name</string>
+    <string name="birth_date">Date of birth</string>
     <string name="date_mask">--.--.----</string>
-    <string name="sex">Пол</string>
-    <string name="office">Должность</string>
-    <string name="hint_office">Должность</string>
-    <string name="salary">Зарплата</string>
-    <string name="hint_salary">Зарплата в рублях</string>
-    <string name="phone">Телефон</string>
-    <string name="hint_phone">Тел.: +71234567890</string>
+    <string name="sex">Sex</string>
+    <string name="office">Office</string>
+    <string name="hint_office">Office</string>
+    <string name="salary">Salary</string>
+    <string name="hint_salary">Salary in RUB</string>
+    <string name="phone">Phone</string>
+    <string name="hint_phone">Ph.: +71234567890</string>
     <string name="email">E-mail</string>
     <string name="hint_email">E-mail: mail@example.com</string>
-    <string name="send_cv_label">Отправить резюме</string>
-    <string name="send_reply_label">Отправить ответ</string>
-    <string name="reply_label">Письмо соискателю</string>
-    <string name="no_data">Не указано</string>
-    <string name="close">Закрыть</string>
-    <string name="cancel">Отмена</string>
-    <string name="employer_reply">Ответ работодателя</string>
-    <string name="hint_reply">Текст письма</string>
-    <string name="toast_name">Поле Ф.И.О. должно быть заполнено.</string>
-    <string name="toast_birth_date">Дата рождения некорректна.</string>
-    <string name="toast_salary">Значение зарплаты некорректно.</string>
-    <string name="toast_phone">Номер телефона некорректен.</string>
-    <string name="toast_email">E-mail некорректен.</string>
-    <string name="set">Задать</string>
+    <string name="send_cv_label">Send resume</string>
+    <string name="send_reply_label">Send reply</string>
+    <string name="reply_label">Reply to the applicant</string>
+    <string name="no_data">No data</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="employer_reply">Reply of employer</string>
+    <string name="hint_reply">E-mail text</string>
+    <string name="toast_name">Name must be filled in.</string>
+    <string name="toast_birth_date">Incorrect date of birth.</string>
+    <string name="toast_salary">Incorrect value of salary.</string>
+    <string name="toast_phone">Incorrect phone.</string>
+    <string name="toast_email">Incorrect E-mail.</string>
+    <string name="set">Set</string>
 
     <string-array name="sex_array">
-        <item>Не выбран</item>
-        <item>Мужской</item>
-        <item>Женский</item>
+        <item>Not selected</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 </resources>
